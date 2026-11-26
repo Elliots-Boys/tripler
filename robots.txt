@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tripler-cgt.pages.dev/sitemap.xml

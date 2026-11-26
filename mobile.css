@@ -1,0 +1,338 @@
+/* TripleR Mobile Stylesheet - link this AFTER style.css */
+/* <link rel="stylesheet" href="mobile.css"> */
+
+@media (max-width: 768px) {
+
+    /* === HEADER === */
+    #headerWrapper {
+        height: auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        padding: 10px;
+        gap: 8px;
+    }
+
+    #mainLogo {
+        width: auto;
+        height: auto;
+        float: none;
+    }
+
+    #mainLogo img {
+        width: 140px;
+        height: auto;
+    }
+
+    #slogan {
+        width: auto;
+        float: none;
+        font-size: 14px;
+        padding: 0;
+    }
+
+    #songDetailsContainer {
+        width: 100%;
+        height: auto;
+        float: none;
+    }
+
+    .facebookTwitterContainer {
+        float: none;
+        display: inline-block;
+        margin: 0 5px;
+    }
+
+    /* === NAV BAR - Hamburger === */
+    #navBarWhole {
+        height: auto;
+        position: relative;
+    }
+
+    #hamburgerBtn {
+        display: block;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 10px 15px;
+        float: right;
+    }
+
+    #hamburgerBtn span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background: white;
+        margin: 5px 0;
+        border-radius: 3px;
+        transition: 0.3s;
+    }
+
+    .navBarContainer {
+        display: none;
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+        padding: 0;
+        gap: 0;
+        background: #00308f;
+    }
+
+    .navBarContainer.open {
+        display: flex;
+    }
+
+    .navBarContainer a {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .navBarContainer button {
+        width: 100%;
+        height: 44px;
+        font-size: 15px;
+        border-radius: 0;
+        border-bottom: 1px solid rgba(255,255,255,0.15);
+        padding: 0 20px;
+        text-align: left;
+    }
+
+    /* === MARQUEE === */
+    marquee {
+        font-size: 14px !important;
+        padding: 6px !important;
+    }
+
+    /* === SLIDESHOW (index) === */
+    .slideshowContainer {
+        width: 90%;
+        max-width: 320px;
+        height: auto;
+        padding: 10px;
+        box-sizing: border-box;
+        margin: 15px auto;
+    }
+
+    .mySlides img {
+        width: 100%;
+        height: auto;
+    }
+
+    /* === ABOUT PAGE === */
+    #aboutContainer {
+        width: 100%;
+        height: auto;
+        margin: 10px auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #micContainer {
+        width: 100%;
+        height: auto;
+        float: none;
+        text-align: center;
+    }
+
+    #micContainer img {
+        width: 80%;
+        max-width: 300px;
+        height: auto;
+    }
+
+    #aboutTextContainer {
+        width: 100%;
+        height: auto;
+        float: none;
+        font-size: 20px;
+        text-align: center;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    #googleMap {
+        width: 100%;
+        height: auto;
+        float: none;
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    #googleMap iframe {
+        width: 100%;
+        height: 250px;
+    }
+
+    /* === SCHEDULE PAGE === */
+    .scheduleTableContainer {
+        width: 100%;
+        padding: 0 10px;
+        box-sizing: border-box;
+        overflow-x: auto;
+    }
+
+    .scheduleTableContainer table {
+        min-width: 600px;
+    }
+
+    .scheduleTableContainer th {
+        font-size: 14px !important;
+        padding: 8px !important;
+    }
+
+    .scheduleTableContainer td {
+        font-size: 12px !important;
+        padding: 6px !important;
+    }
+
+    /* === CONTACT PAGE === */
+    #contactContainer {
+        width: 100%;
+        padding: 0 15px;
+        box-sizing: border-box;
+        margin: 10px auto;
+    }
+
+    #contactTextContainer h1 {
+        font-size: 28px;
+    }
+
+    #contactTextContainer {
+        font-size: 16px;
+    }
+
+    /* === TRAFFIC PAGE === */
+    #trafficContainer {
+        width: 100%;
+        margin: 15px auto;
+        padding: 0 15px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #trafficImageContainer {
+        width: 100%;
+        text-align: center;
+    }
+
+    #trafficImageContainer img {
+        width: 100%;
+        max-width: 350px;
+        height: auto;
+    }
+
+    #trafficTextContainer {
+        width: 100%;
+    }
+
+    #trafficMap {
+        width: 100%;
+        height: 250px;
+        margin: 10px 0;
+    }
+
+    #trafficMap iframe {
+        width: 100%;
+        height: 250px;
+    }
+
+    /* === LISTEN PAGE === */
+    #listenContainer {
+        width: 100%;
+        margin: 15px auto;
+        padding: 0 15px;
+        box-sizing: border-box;
+    }
+
+    #listenContainer audio {
+        width: 100%;
+    }
+
+    /* === PRESENTERS PAGE === */
+    #presentersContainer {
+        width: 100%;
+        margin: 20px auto;
+        padding: 0 15px;
+        box-sizing: border-box;
+    }
+
+    .presenter-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+    }
+
+    .presenter-card {
+        flex: 1 1 calc(50% - 15px);
+        max-width: 160px;
+        text-align: center;
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 15px 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .presenter-card img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+    }
+
+    .presenter-card h2 {
+        font-size: 15px;
+        margin: 8px 0 4px;
+    }
+
+    .presenter-card p {
+        font-size: 12px;
+    }
+
+    /* === BLOG === */
+    .blogContainer {
+        padding: 0 15px !important;
+    }
+
+    .blogPost {
+        padding: 15px !important;
+    }
+
+    /* === FORUM === */
+    #forumContainer {
+        padding: 0 15px !important;
+    }
+
+    #categoryFilter {
+        gap: 6px;
+    }
+
+    .filterBtn {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    /* === VLOGS === */
+    #vlogsContainer {
+        padding: 0 15px !important;
+    }
+
+    .vlogGrid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .vlogCard,
+    .comingSoonCard {
+        width: 100% !important;
+        max-width: 100%;
+    }
+
+    /* === FOOTER === */
+    #footerText {
+        font-size: 11px;
+        padding: 8px;
+    }
+}

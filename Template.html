@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Triple R Radio - Live & Local 24/7</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="mobile.css">
+<link rel="icon" href="Images/LancashireRose.ico"/>
+</head>
+<body>
+  <div id="topBar"></div>
+  <div id="mainWrapper">
+       <div id="headerWrapper">
+            <div id="mainLogo">
+	       <a href="index.html"> <img src="Images/TripleRfinal.png" height="110" width="200"></a>
+	    </div>
+	    <div id="slogan">
+		    <p>Live and local 24/7 radio <br> Lancashire and the Northwest</p>
+	  </div>
+	     <div id="songDetailsContainer"></div>
+	     <div class="facebookTwitterContainer"> 
+		<a href="https://www.facebook.com/TripleR" target=_"blank">
+	    	<svg width="35" height="35" viewBox="0 0 24 24">
+	    	<path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.35c-.538 0-.65.221-.65.778v1.222h2l-.209 2h-1.791v7h-3v-7h-2v-2h2v-2.308c0-1.769.931-2.692 3.029-2.692h1.971v3z"/>
+		</svg></a>
+	    </div>
+	         <div class="facebookTwitterContainer">
+		<a href="https://twitter.com/TripleR" target=_"blank">
+		 <svg width="35" height="35" viewBox="0 0 24 24">
+	<path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6.066 9.645c.183 4.04-2.83 8.544-8.164 8.544-1.622 0-3.131-.476-4.402-1.291 1.524.18 3.045-.244 4.252-1.189-1.256-.023-2.317-.854-2.684-1.995.451.086.895.061 1.298-.049-1.381-.278-2.335-1.522-2.304-2.853.388.215.83.344 1.301.359-1.279-.855-1.641-2.544-.889-3.835 1.416 1.738 3.533 2.881 5.92 3.001-.419-1.796.944-3.527 2.799-3.527.825 0 1.572.349 2.096.907.654-.128 1.27-.368 1.824-.697-.215.671-.67 1.233-1.263 1.589.581-.07 1.135-.224 1.649-.453-.384.578-.87 1.084-1.433 1.489z"/>
+		</svg></a>
+           </div>
+        </div>
+ 
+ <div id="navBarWhole">
+	<div class="navBarContainer">
+	  <a href="About.html"><button class="button">About Us</button>
+	  <a href="Schedule.html"><button class="button">Schedule</button> 
+	  <a href="Traffic.html"><button class="button">Traffic & Travel</button> 
+	  <a href="Contact.html"><button class="button">Contact Us</button>
+	  <a href="listen.html"><button class="button">Listen Live</button></a>
+	  <a href="presentors.html"><button class="button">Presentors</button></a>
+	  <a href="blog.html"><button class="button">Blog</button></a>
+	    <a href="merch.html"><button class="button">Merch</button></a>
+	</div>
+  </div>
+<marquee behavior="scroll" direction="left" scrollamount="4" style="color: white; font-weight: bold; background: #00308f; padding: 8px; margin: 0; font-size: 18px;">
+    <!-- Script will replace this text -->
+    Loading welcome message...
+</marquee>
+  <div class="slideshowContainer">
+	<div class="mySlides fade">
+	 <img src="Images/Landmark1.png" style="width:100%">
+	</div>
+  <div class="mySlides fade">
+	<img src="Images/Landmark2.png"style="width=100%">
+  </div>
+     <div class="mySlides fade">
+   <img src="Images/Landmark3.png"style="width:100%">
+  </div>
+ </div>
+ <footer>
+   <div id="mainWrapper">
+	<div id="footerLine"></div>
+	<div id="footerText">Copyright © Triple R -2022</div>
+   </div>
+ </footer>
+  <script src="animate.js"></script>
+<script>
+    function getScrolling() {
+        var monthNames = ["JANUARY","FEBRUARY","MARCH","APRIL","MAY","JUNE","JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER"];
+        var theDate = new Date();
+        var theDay = theDate.getDate();
+        var theMonth = theDate.getMonth();
+        var theYear = theDate.getFullYear();
+        var theHour = theDate.getHours();
+        var presenterName = "Overnight / Off Air";
+
+        if (theHour >= 0 && theHour < 6)   presenterName = "The Overnight Express";
+        if (theHour >= 6 && theHour < 10)  presenterName = "Breakfast with Stuart Clarkson";
+        if (theHour >= 10 && theHour < 14) presenterName = "Mid Mornings with Nick Bewes";
+        if (theHour >= 14 && theHour < 19) presenterName = "Afternoon Drive with Alex Cann";
+        if (theHour >= 19)                 presenterName = "Evenings with Nick Babb";
+
+        var fullDateStr = theDay + " " + monthNames[theMonth] + " " + theYear;
+        var scrollMessage = "Welcome to TripleR | Date: " + fullDateStr + " | Now playing: " + presenterName;
+
+        var marquee = document.getElementsByTagName("marquee")[0];
+        if (marquee) {
+            marquee.innerHTML = scrollMessage;
+        }
+    }
+
+    // Call immediately on load
+    window.onload = function() {
+        getScrolling();
+    };
+</script>
+</body>
+</html>

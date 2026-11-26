@@ -1,0 +1,462 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Merch - TripleR Radio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="mobile.css">
+    <link rel="icon" href="Images/LancashireRose.ico"/>
+    <style>
+        #merchContainer { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        #merchContainer h1 { text-align: center; font-size: 40px; margin-bottom: 10px; }
+        #merchContainer .intro { text-align: center; font-size: 18px; margin-bottom: 40px; }
+
+        .merchGrid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-bottom: 50px; }
+
+        .merchCard {
+            background: #f8f9fa; padding: 20px; border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 290px;
+            display: flex; flex-direction: column;
+        }
+        .merchCard img { width: 100%; border-radius: 8px; margin-bottom: 12px; }
+        .merchCard h3 { margin: 0 0 8px 0; font-size: 18px; }
+        .merchCard p { font-size: 14px; color: #555; flex: 1; margin: 0 0 10px 0; }
+        .merchPrice { font-weight: bold; color: #d00c05; font-size: 20px; margin-bottom: 10px; }
+
+        .stockBadge {
+            display: inline-block; font-size: 12px; font-weight: bold;
+            padding: 3px 10px; border-radius: 20px; margin-bottom: 12px;
+        }
+        .inStock { background: #d4edda; color: #155724; }
+        .lowStock { background: #fff3cd; color: #856404; }
+        .outOfStock { background: #f8d7da; color: #721c24; }
+
+        .sizeSelector { margin-bottom: 12px; }
+        .sizeSelector label { font-size: 13px; font-weight: bold; display: block; margin-bottom: 5px; }
+        .sizeSelector select {
+            width: 100%; padding: 8px; border: 1px solid #ccc;
+            border-radius: 6px; font-size: 14px;
+        }
+
+        .colourSelector { margin-bottom: 12px; }
+        .colourSelector label { font-size: 13px; font-weight: bold; display: block; margin-bottom: 5px; }
+        .colourSelector select {
+            width: 100%; padding: 8px; border: 1px solid #ccc;
+            border-radius: 6px; font-size: 14px;
+        }
+
+        .addToCartBtn {
+            padding: 10px; background: #00308f; color: white;
+            border: none; border-radius: 6px; font-size: 15px;
+            cursor: pointer; width: 100%; margin-top: auto;
+        }
+        .addToCartBtn:hover { background: #d00c05; }
+        .addToCartBtn:disabled { background: #aaa; cursor: not-allowed; }
+
+        /* Basket */
+        #basketBar {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: #00308f; color: white; padding: 14px 30px;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; box-shadow: 0 -3px 10px rgba(0,0,0,0.2);
+        }
+        #basketBar span { font-size: 16px; font-weight: bold; }
+        #viewBasketBtn {
+            padding: 8px 20px; background: #d00c05; color: white;
+            border: none; border-radius: 6px; font-size: 15px; cursor: pointer;
+        }
+        #viewBasketBtn:hover { background: white; color: #d00c05; }
+
+        /* Modal overlay */
+        .modal {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.6);
+            z-index: 2000; justify-content: center; align-items: center;
+        }
+        .modal.open { display: flex; }
+        .modalBox {
+            background: white; border-radius: 12px; padding: 30px;
+            width: 90%; max-width: 600px; max-height: 80vh;
+            overflow-y: auto; position: relative;
+        }
+        .modalBox h2 { margin-top: 0; color: #00308f; }
+        .closeBtn {
+            position: absolute; top: 15px; right: 20px;
+            background: none; border: none; font-size: 24px;
+            cursor: pointer; color: #333;
+        }
+
+        /* Basket items */
+        .basketItem {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 0; border-bottom: 1px solid #eee; gap: 10px;
+        }
+        .basketItem .itemDetails { flex: 1; font-size: 15px; }
+        .basketItem .itemDetails small { color: #888; font-size: 13px; }
+        .basketItem .itemPrice { font-weight: bold; color: #d00c05; font-size: 16px; white-space: nowrap; }
+        .removeBtn {
+            background: none; border: none; color: #d00c05;
+            font-size: 20px; cursor: pointer; padding: 0 5px;
+        }
+        #basketTotal {
+            text-align: right; font-size: 20px; font-weight: bold;
+            margin-top: 15px; color: #00308f;
+        }
+        #checkoutBtn {
+            width: 100%; padding: 12px; background: #00308f; color: white;
+            border: none; border-radius: 6px; font-size: 16px;
+            cursor: pointer; margin-top: 15px;
+        }
+        #checkoutBtn:hover { background: #d00c05; }
+        .emptyBasket { text-align: center; color: #aaa; padding: 30px 0; font-size: 16px; }
+
+        /* Checkout form */
+        #checkoutForm input, #checkoutForm select {
+            width: 100%; padding: 10px; margin-bottom: 12px;
+            border: 1px solid #ccc; border-radius: 6px;
+            font-size: 15px; box-sizing: border-box;
+        }
+        #checkoutForm label { font-size: 13px; font-weight: bold; display: block; margin-bottom: 4px; }
+        #placeOrderBtn {
+            width: 100%; padding: 12px; background: #d00c05; color: white;
+            border: none; border-radius: 6px; font-size: 16px;
+            cursor: pointer; margin-top: 5px;
+        }
+        #placeOrderBtn:hover { background: #00308f; }
+        #backToBasketBtn {
+            width: 100%; padding: 10px; background: #eee; color: #333;
+            border: none; border-radius: 6px; font-size: 14px;
+            cursor: pointer; margin-top: 8px;
+        }
+
+        /* Order confirmed */
+        #orderConfirmed { text-align: center; padding: 20px 0; }
+        #orderConfirmed .tick { font-size: 60px; }
+        #orderConfirmed h2 { color: #155724; }
+
+        /* Toast notification */
+        #toast {
+            position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%);
+            background: #155724; color: white; padding: 12px 25px;
+            border-radius: 8px; font-size: 15px; font-weight: bold;
+            opacity: 0; transition: opacity 0.3s; z-index: 3000;
+            pointer-events: none;
+        }
+        #toast.show { opacity: 1; }
+
+        body { padding-bottom: 70px; }
+    </style>
+</head>
+<body>
+    <div id="topBar"></div>
+    <div id="mainWrapper">
+        <div id="headerWrapper">
+            <div id="mainLogo">
+                <a href="index.html">
+                    <img src="Images/TripleRfinal.png" height="110" width="200" alt="TripleR Logo"/>
+                </a>
+            </div>
+            <div id="slogan">
+                <p>Live and local 24/7 radio<br>Lancashire and the Northwest</p>
+            </div>
+            <div id="songDetailsContainer"></div>
+            <div class="facebookTwitterContainer">
+                <a href="https://www.facebook.com/TripleR">
+                    <svg width="35" height="35" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.35c-.538 0-.65.221-.65.778v1.222h2l-.209 2h-1.791v7h-3v-7h-2v-2h2v-2.308c0-1.769.931-2.692 3.029-2.692h1.971v3z"/>
+                    </svg>
+                </a>
+            </div>
+            <div class="facebookTwitterContainer">
+                <a href="https://twitter.com/TripleR">
+                    <svg width="35" height="35" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6.066 9.645c.183 4.04-2.83 8.544-8.164 8.544-1.622 0-3.131-.476-4.402-1.291 1.524.18 3.045-.244 4.252-1.189-1.256-.023-2.317-.854-2.684-1.995.451.086.895.061 1.298-.049-1.381-.278-2.335-1.522-2.304-2.853.388.215.83.344 1.301.359-1.279-.855-1.641-2.544-.889-3.835 1.416 1.738 3.533 2.881 5.92 3.001-.419-1.796.944-3.527 2.799-3.527.825 0 1.572.349 2.096.907.654-.128 1.27-.368 1.824-.697-.215.671-.67 1.233-1.263 1.589.581-.07 1.135-.224 1.649-.453-.384.578-.87 1.084-1.433 1.489z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <div id="navBarWhole">
+            <div class="navBarContainer">
+                <a href="About.html"><button class="button">About Us</button></a>
+                <a href="Schedule.html"><button class="button">Schedule</button></a>
+                <a href="Traffic.html"><button class="button">Traffic & Travel</button></a>
+                <a href="contact.html"><button class="button">Contact Us</button></a>
+                <a href="listen.html"><button class="button">Listen Live</button></a>
+                <a href="presentors.html"><button class="button">Presenters</button></a>
+                <a href="blog.html"><button class="button">Blog</button></a>
+                <a href="merch.html"><button class="button">Merch</button></a>
+                <a href="forum.html"><button class="button">Forum</button></a>
+                <a href="vlogs.html"><button class="button">Vlogs</button></a>
+            </div>
+        </div>
+
+        <marquee behavior="scroll" direction="left" scrollamount="4" style="color: white; font-weight: bold; background: #00308f; padding: 8px; margin: 0; font-size: 18px;">
+            Loading welcome message...
+        </marquee>
+
+        <div id="merchContainer">
+            <h1>TripleR Merch</h1>
+            <p class="intro">Show your support and rep Lancashire pride! All profits go back into keeping TripleR live, local, and free.</p>
+
+            <div class="merchGrid">
+
+                <!-- T-Shirt -->
+                <div class="merchCard">
+                    <img src="Images/merch-tshirt.png" alt="TripleR T-Shirt">
+                    <h3>Lancashire Rose T-Shirt</h3>
+                    <p>Classic TripleR logo and Lancashire Rose emblem. Available in black or red.</p>
+                    <div class="merchPrice">£18.99</div>
+                    <span class="stockBadge inStock">In Stock</span>
+                    <div class="colourSelector">
+                        <label>Colour:</label>
+                        <select id="tshirt-colour">
+                            <option value="Black">Black</option>
+                            <option value="Red">Red</option>
+                        </select>
+                    </div>
+                    <div class="sizeSelector">
+                        <label>Size:</label>
+                        <select id="tshirt-size">
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                            <option value="XXL">XXL</option>
+                        </select>
+                    </div>
+                    <button class="addToCartBtn" onclick="addToCart('Lancashire Rose T-Shirt', 18.99, 'tshirt-size', 'tshirt-colour')">Add to Basket</button>
+                </div>
+
+                <!-- Mug -->
+                <div class="merchCard">
+                    <img src="Images/merch-mug.png" alt="TripleR Mug">
+                    <h3>TripleR Mug</h3>
+                    <p>Ceramic mug with red TripleR logo — perfect for your morning brew.</p>
+                    <div class="merchPrice">£9.99</div>
+                    <span class="stockBadge lowStock">Low Stock — 3 Left!</span>
+                    <button class="addToCartBtn" onclick="addToCart('TripleR Mug', 9.99, null, null)">Add to Basket</button>
+                </div>
+
+                <!-- Sticker Pack -->
+                <div class="merchCard">
+                    <img src="Images/merch-stickers.png" alt="TripleR Sticker Pack">
+                    <h3>Sticker Pack</h3>
+                    <p>5-pack of TripleR and Lancashire Rose stickers — great for laptops, water bottles, and cars.</p>
+                    <div class="merchPrice">£4.99</div>
+                    <span class="stockBadge inStock">In Stock</span>
+                    <button class="addToCartBtn" onclick="addToCart('Sticker Pack', 4.99, null, null)">Add to Basket</button>
+                </div>
+
+                <!-- Hoodie -->
+                <div class="merchCard">
+                    <img src="Images/merch-tshirt.png" alt="TripleR Hoodie">
+                    <h3>TripleR Hoodie</h3>
+                    <p>Warm navy hoodie with embroidered TripleR logo — perfect for Lancashire weather.</p>
+                    <div class="merchPrice">£34.99</div>
+                    <span class="stockBadge outOfStock">Out of Stock</span>
+                    <div class="sizeSelector">
+                        <label>Size:</label>
+                        <select id="hoodie-size" disabled>
+                            <option>S</option><option>M</option><option>L</option><option>XL</option>
+                        </select>
+                    </div>
+                    <button class="addToCartBtn" disabled>Out of Stock</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Basket Bar -->
+    <div id="basketBar">
+        <span>🛒 Basket: <span id="basketCount">0</span> item(s) — <strong>£<span id="basketTotal2">0.00</span></strong></span>
+        <button id="viewBasketBtn" onclick="openModal('basketModal')">View Basket</button>
+    </div>
+
+    <!-- Basket Modal -->
+    <div class="modal" id="basketModal">
+        <div class="modalBox">
+            <button class="closeBtn" onclick="closeModal('basketModal')">✕</button>
+            <h2>Your Basket</h2>
+            <div id="basketItems"></div>
+            <div id="basketTotal"></div>
+            <button id="checkoutBtn" onclick="showCheckout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal" id="checkoutModal">
+        <div class="modalBox">
+            <button class="closeBtn" onclick="closeModal('checkoutModal')">✕</button>
+            <div id="checkoutView">
+                <h2>Checkout</h2>
+                <div id="checkoutForm">
+                    <label>Full Name:</label>
+                    <input type="text" id="co-name" placeholder="e.g. Dave Johnson">
+                    <label>Email Address:</label>
+                    <input type="email" id="co-email" placeholder="your@email.com">
+                    <label>Address Line 1:</label>
+                    <input type="text" id="co-addr1" placeholder="e.g. 12 Ribble Street">
+                    <label>Address Line 2 (optional):</label>
+                    <input type="text" id="co-addr2" placeholder="e.g. Flat 2">
+                    <label>City:</label>
+                    <input type="text" id="co-city" placeholder="e.g. Preston">
+                    <label>Postcode:</label>
+                    <input type="text" id="co-postcode" placeholder="e.g. PR1 2AB">
+                    <label>Payment Method:</label>
+                    <select id="co-payment">
+                        <option value="card">Credit / Debit Card</option>
+                        <option value="paypal">PayPal</option>
+                        <option value="bank">Bank Transfer</option>
+                    </select>
+                    <p id="checkoutOrderSummary" style="font-size:14px; color:#555;"></p>
+                    <button id="placeOrderBtn" onclick="placeOrder()">Place Order</button>
+                    <button id="backToBasketBtn" onclick="closeModal('checkoutModal'); openModal('basketModal')">← Back to Basket</button>
+                </div>
+            </div>
+            <div id="orderConfirmed" style="display:none;">
+                <div class="tick">✅</div>
+                <h2>Order Placed!</h2>
+                <p id="confirmMsg"></p>
+                <p style="color:#555; font-size:15px;">Thank you for supporting TripleR! We'll be in touch soon with your order details.</p>
+                <button id="placeOrderBtn" onclick="closeModal('checkoutModal')" style="margin-top:15px;">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast"></div>
+
+    <footer>
+        <div id="footerLine"></div>
+        <div id="footerText">Copyright © Triple R - 2022</div>
+    </footer>
+
+    <script src="animate.js"></script>
+<script src="hamburger.js"></script>
+    <script>
+        var basket = JSON.parse(localStorage.getItem('tripler_basket') || '[]');
+
+        function getScrolling() {
+            var monthNames = ["JANUARY","FEBRUARY","MARCH","APRIL","MAY","JUNE","JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER"];
+            var theDate = new Date();
+            var h = theDate.getHours();
+            var presenterName = "Overnight / Off Air";
+            if (h >= 0 && h < 6) presenterName = "The Overnight Express";
+            if (h >= 6 && h < 10) presenterName = "Breakfast with Stuart Clarkson";
+            if (h >= 10 && h < 14) presenterName = "Mid Mornings with Nick Bewes";
+            if (h >= 14 && h < 19) presenterName = "Afternoon Drive with Alex Cann";
+            if (h >= 19) presenterName = "Evenings with Nick Babb";
+            var scrollMessage = "Welcome to TripleR | Date: " + theDate.getDate() + " " + monthNames[theDate.getMonth()] + " " + theDate.getFullYear() + " | Now playing: " + presenterName;
+            var marquee = document.getElementsByTagName("marquee")[0];
+            if (marquee) marquee.innerHTML = scrollMessage;
+        }
+
+        function saveBasket() {
+            localStorage.setItem('tripler_basket', JSON.stringify(basket));
+        }
+
+        function updateBasketBar() {
+            var total = basket.reduce(function(sum, item) { return sum + item.price; }, 0);
+            document.getElementById('basketCount').innerText = basket.length;
+            document.getElementById('basketTotal2').innerText = total.toFixed(2);
+        }
+
+        function addToCart(name, price, sizeId, colourId) {
+            var size = sizeId ? document.getElementById(sizeId).value : null;
+            var colour = colourId ? document.getElementById(colourId).value : null;
+            var item = { id: Date.now(), name: name, price: price, size: size, colour: colour };
+            basket.push(item);
+            saveBasket();
+            updateBasketBar();
+            showToast('Added to basket: ' + name + (size ? ' (' + (colour ? colour + ', ' : '') + size + ')' : ''));
+        }
+
+        function removeFromBasket(id) {
+            basket = basket.filter(function(item) { return item.id !== id; });
+            saveBasket();
+            updateBasketBar();
+            renderBasket();
+        }
+
+        function renderBasket() {
+            var container = document.getElementById('basketItems');
+            var totalEl = document.getElementById('basketTotal');
+            if (basket.length === 0) {
+                container.innerHTML = '<p class="emptyBasket">Your basket is empty!</p>';
+                totalEl.innerHTML = '';
+                document.getElementById('checkoutBtn').style.display = 'none';
+                return;
+            }
+            document.getElementById('checkoutBtn').style.display = 'block';
+            var html = '';
+            var total = 0;
+            basket.forEach(function(item) {
+                total += item.price;
+                var details = item.name;
+                if (item.colour || item.size) {
+                    details += '<br><small>' + (item.colour ? item.colour : '') + (item.colour && item.size ? ', ' : '') + (item.size ? item.size : '') + '</small>';
+                }
+                html += '<div class="basketItem">';
+                html += '<div class="itemDetails">' + details + '</div>';
+                html += '<div class="itemPrice">£' + item.price.toFixed(2) + '</div>';
+                html += '<button class="removeBtn" onclick="removeFromBasket(' + item.id + ')">🗑</button>';
+                html += '</div>';
+            });
+            container.innerHTML = html;
+            totalEl.innerHTML = '<div id="basketTotal">Total: £' + total.toFixed(2) + '</div>';
+        }
+
+        function showCheckout() {
+            var total = basket.reduce(function(sum, item) { return sum + item.price; }, 0);
+            document.getElementById('checkoutOrderSummary').innerText = basket.length + ' item(s) — Total: £' + total.toFixed(2);
+            closeModal('basketModal');
+            document.getElementById('orderConfirmed').style.display = 'none';
+            document.getElementById('checkoutView').style.display = 'block';
+            openModal('checkoutModal');
+        }
+
+        function placeOrder() {
+            var name = document.getElementById('co-name').value.trim();
+            var email = document.getElementById('co-email').value.trim();
+            var addr1 = document.getElementById('co-addr1').value.trim();
+            var city = document.getElementById('co-city').value.trim();
+            var postcode = document.getElementById('co-postcode').value.trim();
+            if (!name || !email || !addr1 || !city || !postcode) {
+                alert('Please fill in all required fields!');
+                return;
+            }
+            var total = basket.reduce(function(sum, item) { return sum + item.price; }, 0);
+            document.getElementById('confirmMsg').innerText = 'Hi ' + name + '! Your order of ' + basket.length + ' item(s) totalling £' + total.toFixed(2) + ' is confirmed and will be delivered to ' + city + '.';
+            basket = [];
+            saveBasket();
+            updateBasketBar();
+            document.getElementById('checkoutView').style.display = 'none';
+            document.getElementById('orderConfirmed').style.display = 'block';
+        }
+
+        function openModal(id) {
+            if (id === 'basketModal') renderBasket();
+            document.getElementById(id).classList.add('open');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('open');
+        }
+
+        function showToast(msg) {
+            var toast = document.getElementById('toast');
+            toast.innerText = msg;
+            toast.classList.add('show');
+            setTimeout(function() { toast.classList.remove('show'); }, 2500);
+        }
+
+        window.onload = function() {
+            getScrolling();
+            updateBasketBar();
+        };
+    </script>
+</body>
+</html>

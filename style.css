@@ -1,0 +1,339 @@
+body {
+    background-image: url("Images/background1.jpg");
+    background-position: center;
+    background-size: cover;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+#topBar {
+    width: 100%;
+    height: 35px;
+    background: rgb(224, 12, 5);
+    margin: 0;
+    padding: 0;
+    align-self: stretch;
+    flex-shrink: 0;
+}
+#Topbar {
+    width: 100%;
+    height: 15px; 
+    background: rgb(224, 12, 5); 
+    position: relative; 
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+} 
+
+
+#mainWrapper {
+    width: 1200px;
+    max-width: 100%;               
+    margin: 0 auto;
+    padding: 0 15px;               
+    box-sizing: border-box;
+}
+
+#headerWrapper {
+    width: 100%;
+    height: 150px;
+}
+
+#mainLogo {
+    width: 250px;
+    height: 100px;
+    float: left;
+}
+
+#slogan {
+    width: 330px;
+    padding-top: 0px;
+    float: left;
+    font-size: 25px;
+}
+
+#songDetailsContainer {
+    width: 300px;
+    height: 100px;
+    float: left;
+}
+
+.facebookTwitterContainer {
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+    float: right;
+}
+
+.facebookTwitterContainer svg {
+    fill: rgb(224, 12, 5);
+}
+
+.facebookTwitterContainer svg:hover {
+    transition: ease-in-out 0.5s;
+    transform: scale(1.3);
+    fill: rgb(11, 7, 253);
+}
+
+#navBarWhole {
+    width: 100%;
+    height: 60px;
+    background-color: #00308f;
+}
+
+.navBarContainer {
+    width: 1200px;
+    max-width: 100%;
+    height: 60px;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    text-decoration: none;
+}
+
+.navBarContainer button {
+    width: 100px;
+    height: 40px;
+    position: relative;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 0 6px;
+}
+
+.navBarContainer button:hover {
+    box-shadow: inset 0px 40px 0 0 rgb(224, 12, 5);
+    color: white;
+}
+
+.slideshowContainer {
+    flex-direction: row;
+    width: 500px;
+    height: 500px;
+    padding: 20px;
+    border-radius: 5px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0.1px 0.1px 2px rgb(73, 73, 73);
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.mySlides img {
+    width: 500px;
+    height: 500px;
+    border-radius: 10px;
+}
+
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 9s;
+    animation-name: fade;
+    animation-duration: 9s;
+}
+
+@-webkit-keyframes fade {
+    0% { opacity: 0.4; }
+    50% { opacity: 1; }
+    100% { opacity: 0.4; }
+}
+
+@keyframes fade {
+    0% { opacity: 0.4; }
+    50% { opacity: 1; }
+    100% { opacity: 0.4; }
+}
+
+#footerLine {
+    width: 100%;
+    border-style: solid;
+    border-color: rgb(224, 12, 5);
+    border-width: 2px 0 0 0;
+}
+
+#footerText {
+    text-align: center;
+    font-size: 12px;
+    font-style: italic;
+    padding: 10px 0;
+}
+
+/* About Us */
+#aboutContainer {
+    width: 1000px;
+    height: 500px;
+    margin: 20px auto;
+}
+
+#micContainer {
+    width: 400px;
+    height: 500px;
+    float: left;
+}
+
+#aboutTextContainer {
+    width: 250px;
+    height: auto;
+    font-size: 35px;
+    float: left;
+}
+
+#googleMap {
+    width: 250px;
+    height: 250px;
+    margin-left: 25px;
+    float: left;
+}
+
+/* Schedule table */
+.scheduleTableContainer table th {
+    font-family: sans-serif;
+    font-size: 30px;
+    padding: 15px;
+    color: rgb(224, 12, 5);
+}
+
+.scheduleTableContainer table td {
+    font-family: sans-serif;
+    font-size: 16px;
+    padding: 10px;
+    font-weight: bold;
+}
+
+/* Contact Us */
+#contactContainer {
+    width: 800px;
+    height: auto;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+#contactTextContainer {
+    width: 100%;
+    height: auto;
+    font-size: 20px;
+}
+
+#contactTextContainer h1 {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+#contactTextContainer p {
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+#contactTextContainer form {
+    margin-top: 20px;
+}
+
+#contactTextContainer label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+#contactTextContainer input[type="text"],
+#contactTextContainer input[type="email"],
+#contactTextContainer textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #999;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+#contactTextContainer textarea {
+    height: 150px;
+}
+
+#contactTextContainer input[type="submit"] {
+    padding: 12px 30px;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+#contactTextContainer input[type="submit"]:hover {
+    background-color: #004080;
+}
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+#mainWrapper {
+    flex: 1 0 auto;
+}
+
+footer {
+    flex-shrink: 0;
+}
+
+/* Traffic & Travel */
+#trafficContainer {
+    width: 1000px;
+    min-height: 500px;
+    margin: 30px auto 40px 100px;
+    overflow: hidden;
+}
+
+/* Listen Live */
+#listenContainer {
+    width: 1000px;
+    min-height: 500px;
+    margin: 30px auto 40px 100px;
+    text-align: center;
+}
+
+/* Presenters */
+#presentersContainer {
+    width: 1100px;
+    min-height: 700px;
+    margin: 40px auto 140px;
+    padding: 0 20px;
+}
+
+
+@media (max-width: 1300px) {
+    #mainWrapper {
+        padding: 0 10px;
+    }
+
+    #aboutContainer,
+    #contactContainer,
+    #trafficContainer,
+    #listenContainer,
+    #presentersContainer {
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .presenter-grid {
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .presenter-card {
+        flex: 1 1 220px;
+        max-width: 280px;
+    }
+}
